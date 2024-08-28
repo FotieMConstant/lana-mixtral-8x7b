@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-      - cron: "37 9 * * *"
+    - cron: "37 9 * * *"
 
 jobs:
   test:
@@ -13,12 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: [
-          "pythia",
-          "codellama",
-          "llama-3",
-          "mistral-memorize",
-          ]
+        config: ["pythia", "codellama", "llama-3", "mistral-memorize"]
     env:
       MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
       MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
@@ -41,14 +36,14 @@ jobs:
 
       - name: Prep config and data for CI
         run: |
-          python ci/prep_for_ci.py --config=config/${{ matrix.config }}.yml --data=data/sqlqa.subsample.jsonl
-          echo `wc -l data/sqlqa.subsample.jsonl | awk '{print $1}'` lines in test data
+          python ci/prep_for_ci.py --config=config/${{ matrix.config }}.yml --data=data/lanadoc_dataset.jsonl
+          echo `wc -l data/lanadoc_dataset.jsonl | awk '{print $1}'` lines in test data
           echo Config:
           cat config/${{ matrix.config }}.yml
 
       - name: Run training job on Modal
         run: |
-          modal run src.train --config=config/${{ matrix.config }}.yml --data=data/sqlqa.subsample.jsonl
+          modal run src.train --config=config/${{ matrix.config }}.yml --data=data/lanadoc_dataset.jsonl
 
       - name: Check training results
         run: |

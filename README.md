@@ -51,7 +51,7 @@ Inference on the fine-tuned model displays conformity to the output structure (`
 3. **Launch a finetuning job**:
    ```bash
    export ALLOW_WANDB=true  # if you're using Weights & Biases
-   modal run --detach src.train --config=config/mistral-memorize.yml --data=data/sqlqa.subsample.jsonl
+   modal run --detach src.train --config=config/mixtral.yml --data=data/lanadoc_dataset.jsonl
    ```
 
 This example training script is opinionated in order to make it easy to get started. Feel free to adapt it to suit your needs.
