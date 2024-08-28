@@ -22,7 +22,7 @@ datasets:
         {instruction} [/INST]
 
 dataset_prepared_path:
-val_set_size: 2
+val_set_size: 6
 output_dir: ./lora-out
 
 ## You can optionally freeze the entire model and unfreeze a subset of parameters
